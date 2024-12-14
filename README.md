@@ -13,4 +13,4 @@
 - JavaMail (Notificação via e-mail)
 
 
-## Algumas das configurações mais relevantes do projeto estão localizadas no aruqivo: application.properties dentro de src/main/resources
+### Algumas das configurações mais relevantes do projeto estão localizadas no arquivo: application.properties dentro de src/main/resources
