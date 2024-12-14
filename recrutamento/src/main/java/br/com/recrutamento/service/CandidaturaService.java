@@ -49,7 +49,6 @@ public class CandidaturaService {
 		
 		notificacaoService.enviarNotificacaoCandidato(cadidato, vaga);
 		notificacaoService.enviarNotificacaoResponsavel(vaga.getResponsavel(), vaga, cadidato);
-		
 	}
 	
 	@Transactional(readOnly = true)

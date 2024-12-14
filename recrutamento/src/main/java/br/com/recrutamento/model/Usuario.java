@@ -28,6 +28,9 @@ public class Usuario {
 	@Enumerated(EnumType.STRING)
 	private TipoUsuario tipoUsuario;
 	
+	@OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Vaga> vagas;
+	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     private List<Candidatura> candidaturas;
 	

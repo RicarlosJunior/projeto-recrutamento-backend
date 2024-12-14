@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.recrutamento.controller.dto.VagaDTO;
 import br.com.recrutamento.model.Usuario;
 import br.com.recrutamento.model.Vaga;
+import br.com.recrutamento.model.enums.StatusVaga;
 import br.com.recrutamento.repository.UsuarioRepository;
 import br.com.recrutamento.repository.VagaRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -39,20 +40,18 @@ public class VagaService {
 
 	@Transactional
 	public VagaDTO update(Integer id, VagaDTO vagaDTO) {
-		Optional<Vaga> vagaOptional = vagaRepository.findById(id);
-		if (vagaOptional.isPresent()) {
-			
-			Usuario responsavel = usuarioRepository.findById(vagaDTO.responsavelId())
-					.orElseThrow(() -> new EntityNotFoundException("Responsável não encontrado"));
-			
-			var vaga = vagaDTO.toEntity();
-			vaga.setResponsavel(responsavel);
-			
-			vaga = vagaRepository.save(vaga);
-			return new VagaDTO(vaga);
-		} else {
-			throw new EntityNotFoundException("Vaga não encontrada");
-		}
+		
+		vagaRepository.findById(id)
+					  .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
+		
+		Usuario responsavel = usuarioRepository.findById(vagaDTO.responsavelId())
+				.orElseThrow(() -> new EntityNotFoundException("Responsável não encontrado"));
+		
+		var vaga = vagaDTO.toEntity();
+		vaga.setResponsavel(responsavel);
+		
+		vaga = vagaRepository.save(vaga);
+		return new VagaDTO(vaga);
 	}
 
 	@Transactional

@@ -39,8 +39,8 @@ public class UserDetailsImpl implements UserDetails {
 		} else {
 			authorities.add(new SimpleGrantedAuthority("ROLE_COLABORADOR"));
 		}
-		return new UserDetailsImpl(usuario.getId(), usuario.getNome(), usuario.getEmail(), usuario.getSenha(), usuario.getTipoUsuario().name(),
-				authorities);
+		return new UserDetailsImpl(usuario.getId(), usuario.getNome(), usuario.getEmail(), usuario.getSenha(),
+				usuario.getTipoUsuario().name(), authorities);
 	}
 
 	@Override
@@ -50,7 +50,6 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public String getPassword() {
-		System.out.println("UserDetailsImpl Password: " + password);
 		return this.password;
 	}
 

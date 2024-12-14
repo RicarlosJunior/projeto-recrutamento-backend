@@ -70,7 +70,7 @@ public class VagaController {
 	}
 
 	@GetMapping("/{id}")
-	@Operation(summary = "Consultar por id", description = "Recurso que consulta uma vaga por id", tags = "VAGA")
+	@Operation(summary = "Consultar por Id", description = "Recurso que consulta uma vaga por id", tags = "VAGA")
 	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
 	public ResponseEntity<VagaDTO> findById(@PathVariable Integer id) {
 		var vaga = vagaService.findById(id);

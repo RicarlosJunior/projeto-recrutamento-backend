@@ -10,6 +10,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.recrutamento.exception.LoginException;
 import br.com.recrutamento.service.UserDetailsServiceImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -40,10 +41,11 @@ public class AuthFilterToken extends OncePerRequestFilter{
 				SecurityContextHolder.getContext().setAuthentication(auth);
 			}
 			
+		}
+		catch(LoginException loginException) {
+			throw loginException;
 		}catch(Exception e) {
 			System.out.println("Ocorreu um erro ao proecssar o token");
-		}finally {
-			
 		}
 		
 		filterChain.doFilter(request, response);

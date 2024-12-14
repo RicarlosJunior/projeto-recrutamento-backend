@@ -3,9 +3,12 @@ package br.com.recrutamento.model;
 import java.util.List;
 import java.util.Objects;
 
+import br.com.recrutamento.model.enums.StatusVaga;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -33,6 +36,9 @@ public class Vaga {
 	
     @OneToMany(mappedBy = "vaga", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
     private List<Candidatura> candidaturas;
+    
+    @Enumerated(EnumType.STRING)
+    private StatusVaga statusVaga;
 
     
 	public Integer getId() {
@@ -72,6 +78,12 @@ public class Vaga {
 		this.candidaturas = candidaturas;
 	}
 
+	public StatusVaga getStatusVaga() {
+		return statusVaga;
+	}
+	public void setStatusVaga(StatusVaga statusVaga) {
+		this.statusVaga = statusVaga;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
