@@ -3,6 +3,7 @@ package br.com.recrutamento.model;
 import java.util.Objects;
 
 import br.com.recrutamento.model.enums.StatusCandidatura;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -30,6 +31,7 @@ public class Candidatura {
 	@Enumerated(EnumType.STRING)
 	private StatusCandidatura statusCandidatura;
 	
+	@Column(columnDefinition = "TEXT")
 	private String devolutiva;
 	
 	public Integer getId() {

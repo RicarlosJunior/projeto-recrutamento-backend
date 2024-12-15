@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.recrutamento.model.enums.StatusVaga;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,7 +27,11 @@ public class Vaga {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	
+    @Column(nullable = false, length = 150)
 	private String titulo;
+	
+	@Column(nullable = true, columnDefinition = "TEXT")
 	private String descricao;
 	
 	@ElementCollection
