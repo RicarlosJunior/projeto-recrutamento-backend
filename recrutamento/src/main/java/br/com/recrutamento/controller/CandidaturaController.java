@@ -41,7 +41,7 @@ public class CandidaturaController {
     }
 	
 	@GetMapping("/consultar/{usuarioId}")
-	@Operation(summary = "Consultar candidaturas por usuario", description = "Recurso que consulta candidaturas por usuario ", tags = "CANDIDATURA")
+	@Operation(summary = "Consultar Candidaturas por Usuario", description = "Recurso que consulta candidaturas por usuario ", tags = "CANDIDATURA")
 	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
 	public ResponseEntity<List<CandidaturaDTO>> findCandidaturasByUsuarioId(@PathVariable Integer usuarioId) {
 		var candidaturas = candidaturaService.findCandidaturasByUsuarioId(usuarioId);

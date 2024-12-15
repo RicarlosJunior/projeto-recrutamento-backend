@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.recrutamento.controller.dto.UsuarioDTO;
 import br.com.recrutamento.controller.dto.VagaDTO;
+import br.com.recrutamento.exception.UsuarioException;
 import br.com.recrutamento.model.Usuario;
 import br.com.recrutamento.model.Vaga;
 import br.com.recrutamento.repository.UsuarioRepository;
@@ -27,16 +28,24 @@ public class UsuarioService {
 	
 	@Transactional
 	public UsuarioDTO save(UsuarioDTO usuarioDTO) {	
-		var usuario = usuarioDTO.toEntity();
-		usuario.setSenha(passwordEncoder.encode(usuarioDTO.senha()));
-		usuario = usuarioRepository.save(usuario);
-		return new UsuarioDTO(usuario);
+			
+		var emailJaCadastrado = usuarioRepository.existsByEmail(usuarioDTO.email());
+		
+		if(emailJaCadastrado) {
+			throw new UsuarioException("Email já cadastrado.");
+		}else {
+			var usuario = usuarioDTO.toEntity();
+			usuario.setSenha(passwordEncoder.encode(usuarioDTO.senha()));
+			usuario = usuarioRepository.save(usuario);
+			return new UsuarioDTO(usuario);
+		}
+
 	}
 
 	@Transactional
 	public UsuarioDTO update(Integer id, UsuarioDTO usuarioDTO) {
 		
-		Usuario usuarioBD = usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+		Usuario usuarioBD = usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
 		
 		var usuario = usuarioDTO.toEntity();
 		if (usuarioDTO.senha() != null && !usuarioDTO.senha().isEmpty()) {
@@ -64,7 +73,7 @@ public class UsuarioService {
 	public UsuarioDTO findById(Integer id) {
 		Optional<Usuario> usuarioOptional = usuarioRepository.findById(id);
 		return usuarioOptional.map(UsuarioDTO::new).orElseThrow(() -> {
-			throw new EntityNotFoundException("Usuário não encontrado");
+			throw new EntityNotFoundException("Usuário não encontrado.");
 		});
 	}
 	

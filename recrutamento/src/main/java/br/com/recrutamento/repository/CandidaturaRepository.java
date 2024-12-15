@@ -17,8 +17,5 @@ public interface CandidaturaRepository extends JpaRepository<Candidatura, Intege
 	@Query("SELECT c FROM Candidatura c WHERE c.usuario.id = :usuarioId")
     List<Candidatura> findCandidaturasByUsuarioId(@Param("usuarioId") Integer usuarioId);
 
-    @Modifying
-	@Query("UPDATE Candidatura c SET c.statusCandidatura =:statusCandidatura WHERE c.id =:id")
-	void approveOrRejectCandidataura(@Param("id") Long id, @Param("statusCandidatura") String status);
 	
 }

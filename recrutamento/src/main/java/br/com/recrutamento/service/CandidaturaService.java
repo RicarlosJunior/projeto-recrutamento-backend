@@ -37,9 +37,9 @@ public class CandidaturaService {
 	public void candidatar(Integer usuarioId, Integer vagaId) throws Exception {
 
 		var cadidato = usuarioRepository.findById(usuarioId)
-				.orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado."));
 		var vaga = vagaRepository.findById(vagaId)
-				.orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
+				.orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada."));
 
 		Candidatura candidatura = new Candidatura();
 		candidatura.setUsuario(cadidato);
@@ -79,7 +79,7 @@ public class CandidaturaService {
 	private CandidaturaDTO aprovarOuReprovarCandidatura(Integer id, CandidaturaDTO candidaturaDTO, StatusCandidatura statusCandidatura) {
 		
 		candidaturaRepository.findById(id)
-					  .orElseThrow(() -> new EntityNotFoundException("Candidatura não encontrada"));
+					  .orElseThrow(() -> new EntityNotFoundException("Candidatura não encontrada."));
 		
 		var candidatura = candidaturaDTO.toEntity();
 		candidatura.setStatusCandidatura(statusCandidatura);

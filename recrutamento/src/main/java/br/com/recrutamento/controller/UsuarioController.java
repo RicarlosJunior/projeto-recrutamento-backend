@@ -62,20 +62,20 @@ public class UsuarioController {
 		return ResponseEntity.ok().build();
 	}
 
+	@GetMapping("/{id}")
+	@Operation(summary = "Consultar Usuario por Id", description = "Recurso que consulta um usuário por id", tags = "USUARIO")
+	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
+	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
+		var usuario = usuarioService.findById(id);
+		return ResponseEntity.ok(usuario);
+	}
+	
 	@GetMapping
 	@Operation(summary = "Consultar todos os Usuários", description = "Recurso que consulta todos os usuários cadastrados", tags = "USUARIO")
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	public ResponseEntity<List<UsuarioDTO>> findAll() {
 		var usuarios = usuarioService.findAll();
 		return ResponseEntity.ok(usuarios);
-	}
-
-	@GetMapping("/{id}")
-	@Operation(summary = "Consultar por Id", description = "Recurso que consulta um usuário por id", tags = "USUARIO")
-	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
-	public ResponseEntity<UsuarioDTO> findById(@PathVariable Integer id) {
-		var usuario = usuarioService.findById(id);
-		return ResponseEntity.ok(usuario);
 	}
 	
 }

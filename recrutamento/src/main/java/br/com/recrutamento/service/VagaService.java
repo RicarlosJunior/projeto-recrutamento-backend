@@ -29,7 +29,7 @@ public class VagaService {
 	public VagaDTO save(VagaDTO vagaDTO) {
 		
 		Usuario responsavel = usuarioRepository.findById(vagaDTO.responsavelId())
-				.orElseThrow(() -> new EntityNotFoundException("Responsável não encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Responsável não encontrado."));
 		
 		var vaga = vagaDTO.toEntity();
 		vaga.setResponsavel(responsavel);
@@ -42,10 +42,10 @@ public class VagaService {
 	public VagaDTO update(Integer id, VagaDTO vagaDTO) {
 		
 		vagaRepository.findById(id)
-					  .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada"));
+					  .orElseThrow(() -> new EntityNotFoundException("Vaga não encontrada."));
 		
 		Usuario responsavel = usuarioRepository.findById(vagaDTO.responsavelId())
-				.orElseThrow(() -> new EntityNotFoundException("Responsável não encontrado"));
+				.orElseThrow(() -> new EntityNotFoundException("Responsável não encontrado."));
 		
 		var vaga = vagaDTO.toEntity();
 		vaga.setResponsavel(responsavel);
@@ -69,7 +69,7 @@ public class VagaService {
 	public VagaDTO findById(Integer id) {
 		Optional<Vaga> vagaOptional = vagaRepository.findById(id);
 		return vagaOptional.map(VagaDTO::new).orElseThrow(() -> {
-			throw new EntityNotFoundException("Vaga não encontrada");
+			throw new EntityNotFoundException("Vaga não encontrada.");
 		});
 	}
 }

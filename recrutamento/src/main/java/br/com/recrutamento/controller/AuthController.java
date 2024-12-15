@@ -23,7 +23,7 @@ public class AuthController {
 	private AuthService authService;
 	
 	@PostMapping(value = "/login")
-	@Operation(summary = "Login", description = "Recurso para autenticação", tags = "LOGIN")
+	@Operation(summary = "Autenticação", description = "Recurso para autenticação", tags = "LOGIN")
 	public ResponseEntity<AcessDTO> login(@RequestBody AuthenticationDTO authenticationDTO){
 		return ResponseEntity.ok(authService.login(authenticationDTO));
 	}

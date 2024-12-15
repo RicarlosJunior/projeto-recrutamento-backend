@@ -61,19 +61,19 @@ public class VagaController {
 		return ResponseEntity.ok().build();
 	}
 
+	@GetMapping("/{id}")
+	@Operation(summary = "Consultar Vaga por Id", description = "Recurso que consulta uma vaga por id", tags = "VAGA")
+	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
+	public ResponseEntity<VagaDTO> findById(@PathVariable Integer id) {
+		var vaga = vagaService.findById(id);
+		return ResponseEntity.ok(vaga);
+	}
+	
 	@GetMapping
 	@Operation(summary = "Consultar todas as Vagas", description = "Recurso que consulta todas as vagas cadastradas", tags = "VAGA")
 	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
 	public ResponseEntity<List<VagaDTO>> findAll() {
 		var vagas = vagaService.findAll();
 		return ResponseEntity.ok(vagas);
-	}
-
-	@GetMapping("/{id}")
-	@Operation(summary = "Consultar por Id", description = "Recurso que consulta uma vaga por id", tags = "VAGA")
-	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
-	public ResponseEntity<VagaDTO> findById(@PathVariable Integer id) {
-		var vaga = vagaService.findById(id);
-		return ResponseEntity.ok(vaga);
 	}
 }

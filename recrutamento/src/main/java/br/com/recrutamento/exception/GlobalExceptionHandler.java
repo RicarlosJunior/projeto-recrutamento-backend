@@ -21,11 +21,16 @@ public class GlobalExceptionHandler {
 	}
 	
 	@ExceptionHandler(LoginException.class)
-    public ResponseEntity<String> handleLoginException(LoginException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+    public ResponseEntity<String> handleLoginException(LoginException loginException) {
+        return new ResponseEntity<>(loginException.getMessage(), HttpStatus.NOT_FOUND);
     }
 	
-	 @ExceptionHandler(AuthorizationDeniedException.class)
+	@ExceptionHandler(UsuarioException.class)
+    public ResponseEntity<String> handleUsuarioException(UsuarioException usuarioException) {
+        return new ResponseEntity<>(usuarioException.getMessage(), HttpStatus.CONFLICT);
+    }
+	
+	@ExceptionHandler(AuthorizationDeniedException.class)
     public ResponseEntity<String> handleAccessDeniedException(AuthorizationDeniedException ex) {
         return new ResponseEntity<>("Acesso negado. Você não tem permissão para acessar este recurso.", HttpStatus.UNAUTHORIZED);
     }
