@@ -47,6 +47,7 @@ public class Vaga {
     private List<Candidatura> candidaturas;
     
     @Enumerated(EnumType.STRING)
+    @Column(length = 30)
     private StatusVaga statusVaga;
 
     

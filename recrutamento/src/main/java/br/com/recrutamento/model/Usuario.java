@@ -33,6 +33,7 @@ public class Usuario {
 	private String senha;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(length = 30)
 	private TipoUsuario tipoUsuario;
 	
 	@OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)

@@ -29,6 +29,7 @@ public class Candidatura {
 	private Vaga vaga;
 	
 	@Enumerated(EnumType.STRING)
+	@Column(length = 30)
 	private StatusCandidatura statusCandidatura;
 	
 	@Column(columnDefinition = "TEXT")

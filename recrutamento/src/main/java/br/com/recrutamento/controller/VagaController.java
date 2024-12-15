@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -76,4 +77,14 @@ public class VagaController {
 		var vagas = vagaService.findAll();
 		return ResponseEntity.ok(vagas);
 	}
+	
+	
+	@GetMapping("/pesquisar")
+	@Operation(summary = "Pesquisar vagas por Requisitos", description = "Recurso que pesquisa as vagas cadastradas por requisitos", tags = "VAGA")
+	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
+    public ResponseEntity<List<VagaDTO>> findByRequisitosContainingIgnoreCase(@RequestParam String requisito) {
+		var vagas = vagaService.findByRequisitosContainingIgnoreCase(requisito);
+        return ResponseEntity.ok(vagas);
+    }
+	
 }

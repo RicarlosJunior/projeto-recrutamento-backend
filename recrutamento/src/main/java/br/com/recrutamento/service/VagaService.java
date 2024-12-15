@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,4 +73,17 @@ public class VagaService {
 			throw new EntityNotFoundException("Vaga não encontrada.");
 		});
 	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<VagaDTO> findByRequisitosContainingIgnoreCase(String requisito) {
+		if (StringUtils.isBlank(requisito)) {
+			List<Vaga> vagas = vagaRepository.findAll();
+			return vagas.stream().map(VagaDTO::new).collect(Collectors.toList());
+        }
+		List<Vaga> vagas = vagaRepository.findByRequisitosContainingIgnoreCase(requisito);
+		return vagas.stream().map(VagaDTO::new).collect(Collectors.toList());
+	}
+	
+	
 }
