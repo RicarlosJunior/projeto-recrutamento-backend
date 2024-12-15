@@ -3,8 +3,11 @@ package br.com.recrutamento.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.recrutamento.model.enums.TipoUsuario;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -22,16 +25,21 @@ public class Usuario {
 	private Integer id;
 	
 	private String nome;
+	
+	@Column(unique = true)		
 	private String email;
+	
 	private String senha;
 	
 	@Enumerated(EnumType.STRING)
 	private TipoUsuario tipoUsuario;
 	
 	@OneToMany(mappedBy = "responsavel", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@JsonIgnore
     private List<Vaga> vagas;
 	
 	@OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+	@JsonIgnore
     private List<Candidatura> candidaturas;
 	
 	

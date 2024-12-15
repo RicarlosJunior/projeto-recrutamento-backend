@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.recrutamento.controller.dto.CandidaturaDTO;
+import br.com.recrutamento.controller.dto.VagaDTO;
 import br.com.recrutamento.service.CandidaturaService;
 import io.swagger.v3.oas.annotations.Operation;
 
@@ -38,12 +41,37 @@ public class CandidaturaController {
     }
 	
 	@GetMapping("/consultar/{usuarioId}")
-	@Operation(summary = "Consultar candidaturas por usuario", description = "Recurso que consulta candidaturas por usuario ", tags = "VAGA")
+	@Operation(summary = "Consultar candidaturas por usuario", description = "Recurso que consulta candidaturas por usuario ", tags = "CANDIDATURA")
 	@PreAuthorize("hasAnyRole('ADMIN', 'COLABORADOR')")
 	public ResponseEntity<List<CandidaturaDTO>> findCandidaturasByUsuarioId(@PathVariable Integer usuarioId) {
 		var candidaturas = candidaturaService.findCandidaturasByUsuarioId(usuarioId);
 		return ResponseEntity.ok(candidaturas);
 	}
 	
+	
+	@GetMapping
+	@Operation(summary = "Consultar todas as Candidaturas", description = "Recurso que consulta todas as candidaturas cadastradas", tags = "CANDIDATURA")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<List<CandidaturaDTO>> findAll() {
+		var candidaturas = candidaturaService.findAll();
+		return ResponseEntity.ok(candidaturas);
+	}
+	
+	@PutMapping("/aprovar/{id}")
+	@Operation(summary = "Aprovar Candidatura", description = "Recurso que aprova uma candidatura", tags = "CANDIDATURA")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<CandidaturaDTO> aprovar(@PathVariable Integer id, @RequestBody CandidaturaDTO candidaturaDTO) {
+		candidaturaService.aprovar(id, candidaturaDTO);
+		return ResponseEntity.ok(candidaturaDTO);
+	}
+	
+	
+	@PutMapping("/reprovar/{id}")
+	@Operation(summary = "Reprovar Candidatura", description = "Recurso que reprova uma candidatura", tags = "CANDIDATURA")
+	@PreAuthorize("hasAnyRole('ADMIN')")
+	public ResponseEntity<CandidaturaDTO> reprovar(@PathVariable Integer id, @RequestBody CandidaturaDTO candidaturaDTO) {
+		candidaturaService.reprovar(id, candidaturaDTO);
+		return ResponseEntity.ok(candidaturaDTO);
+	}
 	
 }

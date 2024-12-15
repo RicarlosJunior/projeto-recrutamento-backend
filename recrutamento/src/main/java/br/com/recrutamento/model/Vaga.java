@@ -3,6 +3,8 @@ package br.com.recrutamento.model;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import br.com.recrutamento.model.enums.StatusVaga;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.ElementCollection;
@@ -32,9 +34,11 @@ public class Vaga {
 	
 	@ManyToOne
     @JoinColumn(name = "responsavel_id")
+	@JsonIgnore
     private Usuario responsavel;
 	
     @OneToMany(mappedBy = "vaga", fetch = FetchType.LAZY, cascade = {CascadeType.REMOVE})
+    @JsonIgnore
     private List<Candidatura> candidaturas;
     
     @Enumerated(EnumType.STRING)

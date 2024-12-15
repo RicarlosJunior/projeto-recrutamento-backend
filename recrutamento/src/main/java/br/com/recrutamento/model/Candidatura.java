@@ -30,6 +30,8 @@ public class Candidatura {
 	@Enumerated(EnumType.STRING)
 	private StatusCandidatura statusCandidatura;
 	
+	private String devolutiva;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -55,6 +57,12 @@ public class Candidatura {
 		this.statusCandidatura = statusCandidatura;
 	}
 	
+	public String getDevolutiva() {
+		return devolutiva;
+	}
+	public void setDevolutiva(String devolutiva) {
+		this.devolutiva = devolutiva;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

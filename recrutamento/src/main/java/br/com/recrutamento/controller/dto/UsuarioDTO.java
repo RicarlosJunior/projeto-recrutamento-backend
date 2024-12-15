@@ -9,7 +9,7 @@ public record UsuarioDTO(Integer id, String nome,String email, String senha,Stri
 		this(entity.getId(), 
 				entity.getNome(), 
 				entity.getEmail(), 
-				entity.getSenha(),
+				null,
 				entity.getTipoUsuario().name());
 	}
 
@@ -18,7 +18,9 @@ public record UsuarioDTO(Integer id, String nome,String email, String senha,Stri
 		usuario.setId(this.id);
 		usuario.setNome(this.nome);
 		usuario.setEmail(this.email);
-		usuario.setSenha(this.senha);
+		if (this.senha != null && !this.senha.isEmpty()) {
+            usuario.setSenha(this.senha); 
+        }
 		usuario.setTipoUsuario(TipoUsuario.valueOf(this.tipoUsuario));
 		return usuario;
 	}

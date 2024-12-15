@@ -36,11 +36,14 @@ public class UsuarioService {
 	@Transactional
 	public UsuarioDTO update(Integer id, UsuarioDTO usuarioDTO) {
 		
-		usuarioRepository.findById(id)
-					  .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
+		Usuario usuarioBD = usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
 		
 		var usuario = usuarioDTO.toEntity();
-		usuario.setSenha(passwordEncoder.encode(usuarioDTO.senha()));
+		if (usuarioDTO.senha() != null && !usuarioDTO.senha().isEmpty()) {
+	        usuario.setSenha(passwordEncoder.encode(usuarioDTO.senha()));
+	    }else {
+	    	usuario.setSenha(usuarioBD.getSenha());
+	    }
 		usuario = usuarioRepository.save(usuario);
 		return new UsuarioDTO(usuario);
 	}
@@ -52,8 +55,8 @@ public class UsuarioService {
 
 	@Transactional(readOnly = true)
 	public List<UsuarioDTO> findAll() {
-		List<Usuario> vagas = usuarioRepository.findAll();
-		return vagas.stream().map(UsuarioDTO::new).collect(Collectors.toList());
+		List<Usuario> usuarios = usuarioRepository.findAll();
+		return usuarios.stream().map(UsuarioDTO::new).collect(Collectors.toList());
 	}
 
 

@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import br.com.recrutamento.controller.dto.CandidaturaDTO;
 import br.com.recrutamento.controller.dto.VagaDTO;
 import br.com.recrutamento.model.Candidatura;
+import br.com.recrutamento.model.Usuario;
 import br.com.recrutamento.model.Vaga;
 import br.com.recrutamento.model.enums.StatusCandidatura;
 import br.com.recrutamento.repository.CandidaturaRepository;
@@ -55,6 +56,36 @@ public class CandidaturaService {
 	public List<CandidaturaDTO> findCandidaturasByUsuarioId(Integer usuarioId) {
 		List<Candidatura> candidaturas = candidaturaRepository.findCandidaturasByUsuarioId(usuarioId);
 		return candidaturas.stream().map(CandidaturaDTO::new).collect(Collectors.toList());
+	}
+	
+	
+	@Transactional(readOnly = true)
+	public List<CandidaturaDTO> findAll() {
+		List<Candidatura> candidaturas = candidaturaRepository.findAll();
+		return candidaturas.stream().map(CandidaturaDTO::new).collect(Collectors.toList());
+	}
+	
+	
+	@Transactional
+	public CandidaturaDTO aprovar(Integer id, CandidaturaDTO candidaturaDTO) {
+		return aprovarOuReprovarCandidatura(id, candidaturaDTO, StatusCandidatura.APROVADA);
+	}
+	
+	@Transactional
+	public CandidaturaDTO reprovar(Integer id, CandidaturaDTO candidaturaDTO) {
+		return aprovarOuReprovarCandidatura(id, candidaturaDTO, StatusCandidatura.REPROVADA);
+	}
+
+	private CandidaturaDTO aprovarOuReprovarCandidatura(Integer id, CandidaturaDTO candidaturaDTO, StatusCandidatura statusCandidatura) {
+		
+		candidaturaRepository.findById(id)
+					  .orElseThrow(() -> new EntityNotFoundException("Candidatura não encontrada"));
+		
+		var candidatura = candidaturaDTO.toEntity();
+		candidatura.setStatusCandidatura(statusCandidatura);
+		
+		candidatura = candidaturaRepository.save(candidatura);
+		return new CandidaturaDTO(candidatura);
 	}
 	
 }
