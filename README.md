@@ -23,7 +23,7 @@ A aplicação permite o gerenciamento dos itens acima com base no papel do usuá
 ## Fluxo desejado para o (ADMIN):
 
 - Acesso ao sistema via autenticação.
-- Criação/Manipulação das informações dos usuários (colaborador ou admin). Observação: ao acessar os dados dos usuários cadastrados, a informação da senha só fica visível para o próprio usuário.
+- Criação/Manipulação das informações dos usuários (colaborador ou admin). **Observação:** ao acessar os dados dos usuários cadastrados, a informação da senha só fica visível para o próprio usuário.
 - Criação/Manipulação das informações das vagas.
 - Gerenciamento das candidaturas cadastradas (aprovação, reprovação e feedbacks).
   
@@ -31,7 +31,7 @@ A aplicação permite o gerenciamento dos itens acima com base no papel do usuá
 
 - Acesso ao sistema via autenticação.
 - Gerenciamento das informações do seu próprio perfil de usuário.
-- Visualização e opção de se candidatar a uma vaga. Observação: a candidatura só pode ser realizada se a vaga estiver aberta.
+- Visualização e opção de se candidatar a uma vaga. **Observação:** a candidatura só pode ser realizada se a vaga estiver aberta.
 - Visualização das suas próprias candidaturas cadastradas (incluindo o feedback).
 
 
