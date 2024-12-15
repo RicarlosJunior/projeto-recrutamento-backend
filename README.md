@@ -40,7 +40,10 @@ As principais configurações da aplicação estão localizadas no arquivo appli
 
 Para acessar a documentação da API, você pode utilizar o Swagger/OpenAPI. Com a aplicação iniciada, acesse http://localhost:8080/swagger-ui/index.html.
 
- Para facilitar os testes, foi utilizada a ferramenta Flyway. Dentro de src/main/resources/db/migration, há um arquivo chamado V202412121302__insert_registros_tabela_usuario.sql. Dentro desse arquivo, há dois inserts de usuários: um ADMIN e outro COLABORADOR, que servem como ponto de partida. Caso os registros não sejam gerados automaticamente, basta copiar e executar as duas linhas abaixo:
+ Para facilitar os testes, foi utilizada a ferramenta Flyway. Dentro de src/main/resources/db/migration, há um arquivo chamado V202412121302__insert_registros_tabela_usuario.sql. Dentro desse arquivo, há dois inserts de usuários: um ADMIN e outro COLABORADOR, que servem como ponto de partida. Para utilizar o Flyway, primeiro inicialize a aplicação backend. Após a criação das tabelas do banco de dados, pare a aplicação, vá até o arquivo application.properties e altere o spring.flyway.enabled=false para spring.flyway.enabled=true, salve e inicialize novamente a aplicação.
+ 
+ 
+ Caso os registros não sejam gerados automaticamente, ou você não deseje utilizar Flyway, basta copiar e executar as duas linhas abaixo:
 ```sql
 INSERT INTO usuario(email, nome, senha, tipo_usuario) 
 VALUES ('colaborador@colaborador.com', 'Colaborador',
